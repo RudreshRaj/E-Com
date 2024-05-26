@@ -4,11 +4,12 @@ interface Rating {
 }
 
 export interface ProductInfo {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
   category: string;
   image: string;
   rating: Rating;
+  cart_id?: number;
 }

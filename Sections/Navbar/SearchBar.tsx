@@ -1,15 +1,21 @@
 "use client";
 
-import { getCategoryList } from "@/utils/apis";
+import { getCategoryList, getFullProductList } from "@/utils/apis";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import SearchList from "./SearchList";
+import { ProductInfo } from "@/utils/types";
 
 function SearchBar() {
   const [categoryList, setCategoryList] = useState<string[] | null>(null);
   const pathName = usePathname();
   const currentCategory = decodeURIComponent(pathName.split("/").slice(-1)[0]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [search, setSearch] = useState<string>("");
+  const ref = useRef<HTMLButtonElement>(null);
+  const [totalList, setTotalList] = useState<ProductInfo[]>([]);
+  const [filteredList, setFilteredList] = useState<ProductInfo[]>([]);
   useEffect(() => {
     async function getData() {
       let {
@@ -21,9 +27,37 @@ function SearchBar() {
     setIsLoaded(false);
     getData();
   }, [pathName]);
+  useEffect(() => {
+    async function getData() {
+      let {
+        props: { data },
+      } = await getFullProductList();
+      setTotalList(data);
+    }
+    getData();
+  }, []);
 
+  const toggleHiddenClass = () => {
+    if (ref.current) {
+      ref.current.click();
+    }
+  };
+  function filterProductsByTitle(
+    products: ProductInfo[],
+    searchString: string
+  ): ProductInfo[] {
+    return products.filter((product) =>
+      product.title.toLowerCase().includes(searchString.toLowerCase())
+    );
+  }
   return (
-    <form className="max-w-lg mx-auto">
+    <form
+      className="max-w-lg mx-auto"
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(search);
+      }}
+    >
       <div className="flex">
         <label
           htmlFor="search-dropdown"
@@ -37,6 +71,7 @@ function SearchBar() {
           className="flex-shrink-0 capitalize z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
           type="button"
           disabled={!isLoaded}
+          ref={ref}
         >
           {pathName !== "/" &&
           pathName !== "/cart" &&
@@ -74,6 +109,7 @@ function SearchBar() {
                     href={`/${name}`}
                     type="button"
                     className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white  capitalize"
+                    onClick={toggleHiddenClass}
                   >
                     {name}
                   </Link>
@@ -81,6 +117,7 @@ function SearchBar() {
               ))}
           </ul>
         </div>
+
         <div className="relative w-full">
           <input
             type="search"
@@ -88,9 +125,25 @@ function SearchBar() {
             className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
             placeholder="Search Mockups, Logos, Design Templates..."
             required
+            value={search}
+            autoComplete="off"
+            onChange={(e) => {
+              setSearch(e.target.value);
+              const filteredProducts = filterProductsByTitle(
+                totalList,
+                e.target.value
+              );
+
+              setFilteredList(filteredProducts);
+            }}
           />
+          {search.length > 0 && (
+            <SearchList filteredList={filteredList} setSearch={setSearch} />
+          )}
           <button
             type="submit"
+            id="dropdown-button2"
+            data-dropdown-toggle="dropdown2"
             className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             <svg

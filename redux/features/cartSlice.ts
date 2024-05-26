@@ -15,12 +15,15 @@ const workspaceSlice = createSlice({
   initialState,
   reducers: {
     addCart: (state, action: PayloadAction<ProductInfo>) => {
-      state.cartList.push(action.payload);
+      state.cartList.push({ ...action.payload, cart_id: new Date().getTime() });
     },
-    removeCart: (state, action: PayloadAction<ProductInfo>) => {
+    removeCart: (state, action: PayloadAction<number>) => {
       state.cartList = state.cartList.filter(
-        (item) => item.id !== action.payload.id
+        (item) => item.cart_id != action.payload
       );
+    },
+    emptyCart: (state, action: PayloadAction) => {
+      state.cartList = [];
     },
     setCurrentCategory: (state, action: PayloadAction<string>) => {
       state.currentCategory = action.payload;
@@ -35,6 +38,7 @@ const workspaceSlice = createSlice({
 export const {
   addCart,
   removeCart,
+  emptyCart,
   setCurrentCategory,
   removeCurrentCategory,
 } = workspaceSlice.actions;

@@ -6,6 +6,14 @@ export async function getCategoryList() {
 
   return { props: { data } };
 }
+export async function getFullProductList() {
+  const res = await fetch(`https://fakestoreapi.com/products/`, {
+    method: "GET",
+  });
+  const data = await res.json();
+
+  return { props: { data } };
+}
 
 export async function getNewProductList() {
   const res = await fetch(`https://fakestoreapi.com/products?limit=7`, {
