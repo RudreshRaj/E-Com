@@ -1,37 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# E-COM
+
+E-COM is E-commerce platform for UAE build with Next14 powered SEO.
+
+# Project Setup
+
+## Requirements
+
+Dependencies installed:
+
+    Node.js (>=22.x)
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the Repository
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    git clone https://github.com/Keyur-Gondaliya/E-Com.git
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    $ npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4. Run
 
-## Learn More
+Go to the root and run
 
-To learn more about Next.js, take a look at the following resources:
+    $ npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Ruuning Urls
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    Frontend : http://localhost:3000/
 
-## Deploy on Vercel
+# Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We welcome contributions to Codedamn-lite! Feel free to submit bug reports, feature requests, or pull requests through GitHub.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# E-Com
+# License
+
+This project is licensed under the MIT License.
+
+#### **_ Feel free to customize the README further based on your project's specific details and requirements. Let me know if you need any further assistance! _**
