@@ -2,6 +2,16 @@
 
 E-COM is E-commerce platform for UAE build with Next14 powered SEO.
 
+# Dynamic URL SEO Demo
+
+## Twitter
+
+<img src="./public/readme/twitterDemo.png" width="200px">
+
+## whatsapp
+
+<img src="./public/readme/whatsappDemo.png" width="200px">
+
 # Project Setup
 
 ## Requirements

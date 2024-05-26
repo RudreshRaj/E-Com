@@ -16,6 +16,8 @@ function SearchBar() {
   const ref = useRef<HTMLButtonElement>(null);
   const [totalList, setTotalList] = useState<ProductInfo[]>([]);
   const [filteredList, setFilteredList] = useState<ProductInfo[]>([]);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+
   useEffect(() => {
     async function getData() {
       let {
@@ -55,7 +57,6 @@ function SearchBar() {
       className="max-w-lg mx-auto"
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(search);
       }}
     >
       <div className="flex">
@@ -133,17 +134,22 @@ function SearchBar() {
                 totalList,
                 e.target.value
               );
-
               setFilteredList(filteredProducts);
+              setIsSelected(false);
             }}
           />
           {search.length > 0 && (
-            <SearchList filteredList={filteredList} setSearch={setSearch} />
+            <SearchList
+              filteredList={filteredList}
+              setSearch={setSearch}
+              search={search}
+              isSelected={isSelected}
+              setIsSelected={setIsSelected}
+            />
           )}
           <button
             type="submit"
             id="dropdown-button2"
-            data-dropdown-toggle="dropdown2"
             className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             <svg

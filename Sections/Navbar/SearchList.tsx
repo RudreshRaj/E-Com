@@ -1,21 +1,37 @@
 import { ProductInfo } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   filteredList: ProductInfo[];
   setSearch: (data: string) => void;
+  search: string;
+  isSelected: boolean;
+  setIsSelected: (data: boolean) => void;
 };
 
-function SearchList({ filteredList, setSearch }: Props) {
+function SearchList({
+  filteredList,
+  setSearch,
+  search,
+  isSelected,
+  setIsSelected,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null);
   function toggleList(title: string) {
     if (ref.current) {
       ref.current.classList.toggle("hidden");
       setSearch(title);
+      setIsSelected(true);
     }
   }
+  useEffect(() => {
+    if (ref.current && !isSelected) {
+      ref.current.classList.remove("hidden");
+    }
+  }, [search]);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
