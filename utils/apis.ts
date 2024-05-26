@@ -39,7 +39,7 @@ export async function getProductById(id: string) {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
     method: "GET",
   });
-  const data = await res.json();
+  let data = await res.json();
 
   return { props: { data } };
 }

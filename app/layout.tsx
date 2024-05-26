@@ -9,8 +9,41 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "E-COM - Keyur Gondaliya",
+  title: {
+    default: "E-COM ",
+    template: "%s | E-COM",
+  },
   description: "E-commerce website for business in UAE.",
+  openGraph: {
+    title: "E-COM",
+    description: "E-commerce website for business in UAE.",
+    url: "https://e-com-keyur-gondaliya.vercel.app",
+    siteName: "e-com-keyur-gondaliya.vercel.app",
+    images: [
+      {
+        url: "https://e-com-keyur-gondaliya.vercel.app/og.png",
+        width: 2322,
+        height: 1306,
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: "E-COM",
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
@@ -47,7 +80,10 @@ export default function RootLayout({
             },
           }}
         />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"
+          async
+        ></script>
       </body>
     </html>
   );
