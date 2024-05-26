@@ -6,11 +6,11 @@ E-COM is E-commerce platform for UAE build with Next14 powered SEO.
 
 ## Twitter
 
-<img src="./public/readme/twitterDemo.png" width="200px">
+<img src="./public/readme/twitterDemo.png" width="100%">
 
 ## whatsapp
 
-<img src="./public/readme/whatsappDemo.png" width="200px">
+<img src="./public/readme/whatsappDemo.png" width="100%">
 
 # Project Setup
 
