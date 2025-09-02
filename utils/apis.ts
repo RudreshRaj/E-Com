@@ -12,8 +12,8 @@ export interface Product {
     lastUpdated: string;
     // Add the rating property to match the API response
     rating: {
-      rate: number;
-      count: number;
+        rate: number;
+        count: number;
     };
 }
 
@@ -38,7 +38,7 @@ interface SearchParams {
  */
 export async function fetchProducts(params: SearchParams): Promise<ProductListResult> {
     // Construct the full, absolute URL for server-side fetching
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL || 'http://localhost:3000';
     const apiUrl = new URL('/api/search-products', baseUrl);
 
     apiUrl.searchParams.set('index', params.index);
@@ -64,15 +64,15 @@ export async function fetchProducts(params: SearchParams): Promise<ProductListRe
  * Gets a single product by its ID.
  * NOTE: This requires you to have the /api/products/[id]/route.ts endpoint.
  */
-export async function getProductById(id: string, indexName:string): Promise<Product> {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+export async function getProductById(id: string, indexName: string): Promise<Product> {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL || 'http://localhost:3000';
     const apiUrl = new URL(`/api/products/${id}`, baseUrl);
     apiUrl.searchParams.set('index', indexName);
-    
+
     const res = await fetch(apiUrl.toString());
 
     if (!res.ok) {
-        if(res.status === 404) throw new Error('Product not found.');
+        if (res.status === 404) throw new Error('Product not found.');
         const errorData = await res.json();
         const serverErrorMessage = errorData.error || errorData.message;
         throw new Error(serverErrorMessage || 'Failed to fetch product details.');
@@ -89,9 +89,9 @@ export async function getProductById(id: string, indexName:string): Promise<Prod
  * This is a dummy implementation. You should create a real API endpoint for this.
  */
 export async function getCategoryList(): Promise<{ props: { data: string[] } }> {
-  console.warn("getCategoryList is using dummy data. Create a real API endpoint for it.");
-  const dummyCategories = ["Electronics", "Jewelery", "Men's Clothing", "Women's Clothing"];
-  return Promise.resolve({ props: { data: dummyCategories } });
+    console.warn("getCategoryList is using dummy data. Create a real API endpoint for it.");
+    const dummyCategories = ["Electronics", "Jewelery", "Men's Clothing", "Women's Clothing"];
+    return Promise.resolve({ props: { data: dummyCategories } });
 }
 
 /**

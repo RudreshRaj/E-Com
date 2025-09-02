@@ -9,7 +9,7 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const indexName = '91182be9-9446-4e29-9ade-b0312b238668';
   const product = await getProductById(params.product, indexName);
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL ||  'http://localhost:3000';
 
   return {
     title: product.name,

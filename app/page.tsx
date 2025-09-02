@@ -3,7 +3,7 @@ import HeroSection from "@/Sections/HeroSection";
 import Trending from "@/Sections/Trending";
 import { Metadata } from "next";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL ||  'http://localhost:3000';
 
 export const metadata: Metadata = {
   title: "E-COM - Your One-Stop Shop",
