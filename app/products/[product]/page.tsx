@@ -1,30 +1,46 @@
-import { getProductById } from "@/utils/apis";
+import { getProductById, Product } from "@/utils/apis";
 import ProductPage from "./ProductPage";
-import { ProductInfo } from "@/utils/types";
 
-type Props = { params: { product: string } };
-export async function generateMetadata({ params: { product } }: Props) {
-  let {
-    props: { data },
-  } = (await getProductById(product)) as {
-    props: { data: ProductInfo };
-  };
+type Props = { 
+  params: { product: string } 
+};
+
+// This function remains the same. Next.js will cache this data request.
+export async function generateMetadata({ params }: Props) {
+  const indexName = '91182be9-9446-4e29-9ade-b0312b238668';
+  const product = await getProductById(params.product, indexName);
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   return {
-    title: data.title,
-    description: data.description,
-    openGraph: { images: [{ url: data.image }] },
+    title: product.name,
+    description: product.description,
+    alternates: {
+      canonical: `${baseUrl}/products/${product.id}`,
+    },
+    openGraph: { 
+      title: product.name,
+      description: product.description,
+      images: [{ url: product.imageUrl }],
+      url: `${baseUrl}/products/${product.id}`,
+      type: 'article'
+    },
     twitter: {
-      images: [{ url: data.image }],
-      title: data.title,
-      description: data.description,
+      card: 'summary_large_image',
+      images: [{ url: product.imageUrl }],
+      title: product.name,
+      description: product.description,
     },
   };
 }
-async function Page({ params: { product } }: { params: { product: string } }) {
+
+// The main Page component now fetches the data and passes it to the child.
+async function Page({ params }: Props) {
+  const indexName = '91182be9-9446-4e29-9ade-b0312b238668';
+  const product = await getProductById(params.product, indexName);
+
   return (
-    <main className="dark:bg-gray-500/5 w-screen">
-      <ProductPage params={product} />
+    <main className="dark:bg-slate-900">
+      <ProductPage product={product} />
     </main>
   );
 }

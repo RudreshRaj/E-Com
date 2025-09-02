@@ -1,37 +1,38 @@
-import { getProductById } from "@/utils/apis";
-import { ProductInfo } from "@/utils/types";
+import { Product } from "@/utils/apis";
 import Ratting from "@/Sections/Components/Ratting";
 import GoBack from "@/Sections/Components/GoBack";
-import AddCartButton from "@/Sections/Components/AddCartButton";
-type Props = { params: string };
+// No longer need AddCartButton for this example, but you could add it back
+// import AddCartButton from "@/Sections/Components/AddCartButton";
 
-async function ProductPage({ params }: Props) {
-  let {
-    props: { data },
-  } = (await getProductById(params)) as {
-    props: { data: ProductInfo };
-  };
+// The component now expects to receive the 'product' object directly
+type Props = { 
+  product: Product 
+};
+
+// It's no longer an async function because it doesn't fetch data
+function ProductPage({ product }: Props) {
+  // All data-fetching logic has been removed from this file.
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 py-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-100 dark:bg-gray-800 py-8 min-h-screen">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <GoBack />
         <div className="flex flex-col md:flex-row -mx-4">
           <div className="md:flex-1 px-4">
             <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
-                className="w-full h-full rounded-xl"
-                src={data.image}
-                alt="Product Image"
+                className="w-full h-full rounded-xl object-cover"
+                src={product.imageUrl}
+                alt={product.name} // Added alt text for accessibility
               />
             </div>
           </div>
           <div className="md:flex-1 px-4">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-              {data.title}
+              {product.name}
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              {data.description}
+              {product.description}
             </p>
             <div className="flex mb-1">
               <div className="mr-4">
@@ -40,21 +41,22 @@ async function ProductPage({ params }: Props) {
                 </span>
                 <span className="text-gray-600 dark:text-gray-200 font-semibold">
                   {" "}
-                  AED {data.price}
+                  AED {product.price}
                 </span>
               </div>
             </div>
-            {data && (
+            {product.rating && (
               <div className="flex items-center mb-2">
-                <Ratting ratting={data.rating.rate} />
+                <Ratting ratting={product.rating.rate} />
                 &nbsp;
                 <span className="text-white text-xs">
                   {" "}
-                  ({data.rating.count})
+                  ({product.rating.count})
                 </span>
               </div>
             )}
-            <AddCartButton data={data} />
+            {/* You can now pass the full product object to AddCartButton */}
+            {/* <AddCartButton data={product} /> */}
           </div>
         </div>
       </div>
