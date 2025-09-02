@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="dark:bg-slate-900">
-      <CategoryList />
+    <main className="dark:bg-slate-900 h-[100vh]">
+      {/* <CategoryList /> */}
       <HeroSection />
       <Trending />
     </main>

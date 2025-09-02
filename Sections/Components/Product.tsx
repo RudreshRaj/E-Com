@@ -11,7 +11,7 @@ function ProductCard({ product }: Props) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border  min-w-60 hover:shadow-xl rounded-xl cursor-pointer"
+      className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border hover:shadow-xl rounded-xl cursor-pointer"
     >
       <div className="relative mx-4  overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-48">
         <img

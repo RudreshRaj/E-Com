@@ -43,7 +43,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ message: 'Index is required' }, { status: 400 });
     }
 
-    const pageSize = 10;
+    const pageSize = 100;
     const from = (page - 1) * pageSize;
 
     // --- Build the Elasticsearch Query ---

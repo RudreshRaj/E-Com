@@ -21,15 +21,17 @@ async function Trending() {
   }
 
   return (
-    <div className="bg-white pb-2">
-      <div className="text-3xl px-4 text-slate-800 font-semibold tracking-wide">
-        Latest products
-      </div>
-      <div className="flex overflow-x-scroll mt-4 gap-4 pb-4">
-        {/* Map over the 'products' array and pass the correct type */}
-        {products.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+    <div className="bg-white py-8">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl text-slate-800 font-semibold tracking-wide mb-6">
+          Latest products
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center">
+          {/* Map over the 'products' array and pass the correct type */}
+          {products.map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );
