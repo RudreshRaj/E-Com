@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./app/**/**/*.{js,ts,jsx,tsx,mdx}",
     "./Sections/**/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/flowbite-react/lib/**/*.js",
   ],
   darkMode: "class",
   theme: {
@@ -35,6 +36,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
 export default config;

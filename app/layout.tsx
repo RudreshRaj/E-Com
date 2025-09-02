@@ -54,12 +54,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
-          rel="stylesheet"
-        />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-x-hidden`}>
         <ReduxProvider>
           <Navbar />
           {children}
@@ -80,10 +76,7 @@ export default function RootLayout({
             },
           }}
         />
-        <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"
-          async
-        ></script>
+        
       </body>
     </html>
   );
